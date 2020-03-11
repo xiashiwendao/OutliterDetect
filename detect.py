@@ -23,7 +23,8 @@ n_outliers = len(x_outliers)
 #separate the two features and use it to plot the data 
 F1 = X_train[:,[0]].reshape(-1,1)
 F2 = X_train[:,[1]].reshape(-1,1)
-
+# print('++++++ F1: ', F1, '++++++++')
+# print('++++++ F1: ', F2, '++++++++')
 # create a meshgrid 
 xx , yy = np.meshgrid(np.linspace(-10, 10, 200), np.linspace(-10, 10, 200))
 
@@ -46,12 +47,12 @@ for i, (clf_name,clf) in enumerate(classifiers.items()) :
     clf.fit(X_train)
 
     # predict raw anomaly（异常） score
-    # 异常基准分数，如果大于逐个分数将会被记录为异常
+    # 返回每一个样本的异常评分
     scores_pred = clf.decision_function(X_train)*-1
     print(clf_name,"; scores_pred: ", scores_pred)
     # prediction of a datapoint category outlier or inlier
     y_pred = clf.predict(X_train)
-
+    print('++++++++ y_pred: ', y_pred, '++++++++++')
     # no of errors in prediction
     n_errors = (y_pred != Y_train).sum()
     print('No of Errors : ',clf_name, n_errors)
